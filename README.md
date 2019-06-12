@@ -41,5 +41,6 @@ Eval.bat						一気通貫で各サンプルプログラムの有用性・安全
 - numpyだけ必要
 
 ```bash
+pip install -r requirements.txt
 bash Eval.bash
 ```
