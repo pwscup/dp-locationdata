@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "SmplProg_Anonymize/A1-none.py", line 32, in <module>
-    g = open(AnoTraceFile, "w")
-OSError: [Errno 71] Protocol error: 'Data_Anonymized/testtraces_TK_A1.csv\r'
-Traceback (most recent call last):
-  File "ShuffleIDs.py", line 71, in <module>
-    g = open(ano_shu_trace_file, "w")
-FileNotFoundError: [Errno 2] No such file or directory: 'Data_Anonymized_Shuffled\r/testtraces_TK_A1.csv'
