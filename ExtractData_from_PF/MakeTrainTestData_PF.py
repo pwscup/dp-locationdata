@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019.
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
 
 Description: 
     Make training traces and testing traces (People flow).
@@ -13,8 +13,6 @@ import csv
 import random
 
 ################################# Parameters ##################################
-# Region file (output)
-RegFile = "../Data/regions_TK.csv"
 # Trace file (input)
 TraceFile = "../Data/traces_TK.csv"
 # Training trace file (output)
@@ -25,8 +23,8 @@ TestTraceFile = "../Data/testtraces_TK.csv"
 # Ratio of training locations over all locations
 TrainRatio = 0.5
 # How to divide the trace (0: former part & latter part, 1: random)
-HowToDiv = 0
-#HowToDiv = 1
+#HowToDiv = 0
+HowToDiv = 1
 # Minimum time interval (sec)
 MinTimInt = 1800
 # Number of users
@@ -135,22 +133,58 @@ train_trace_list, test_trace_list = SplitTraces(ucount_dic, trace_list)
 
 # Output training traces
 f = open(TrainTraceFile, "w")
-print("user_id,time,reg_id", file=f)
+#print("user_id,time,reg_id", file=f)
+print("user_id,time_id,reg_id", file=f)
 writer = csv.writer(f, lineterminator="\n")
+user_id_pre = -1
+time_id = 1
 for event in train_trace_list:
     if event[0] in user_dic:
-#        lst = [user_dic[event[0]],event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],event[8]]
-        lst = [user_dic[event[0]]+1,event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],event[8]+1]
+#        user_id = user_dic[event[0]]
+        user_id = user_dic[event[0]]+1
+#        reg_id = event[8]
+        reg_id = event[8]+1
+
+        # For a new user
+        if user_id != user_id_pre:
+            # Initialization
+            time_id = 1
+
+#        lst = [user_id,event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],reg_id]
+        lst = [user_id,time_id,reg_id]
         writer.writerow(lst)
+
+        # Save user_id  --> user_id_pre
+        user_id_pre = user_id
+        # Increase time_id --> time_id
+        time_id += 1
 f.close()
 
 # Output testing traces
 f = open(TestTraceFile, "w")
-print("user_id,time,reg_id", file=f)
+#print("user_id,time,reg_id", file=f)
+print("user_id,time_id,reg_id", file=f)
 writer = csv.writer(f, lineterminator="\n")
+user_id_pre = -1
+time_id = 1
 for event in test_trace_list:
     if event[0] in user_dic:
-#        lst = [user_dic[event[0]],event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],event[8]]
-        lst = [user_dic[event[0]]+1,event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],event[8]+1]
+#        user_id = user_dic[event[0]]
+        user_id = user_dic[event[0]]+1
+#        reg_id = event[8]
+        reg_id = event[8]+1
+
+        # For a new user
+        if user_id != user_id_pre:
+            # Initialization
+            time_id = 1
+        
+#        lst = [user_id,event[2]+"/"+event[3]+"/"+event[4]+" "+event[5]+":"+event[6]+":"+event[7],reg_id]
+        lst = [user_id,time_id,reg_id]
         writer.writerow(lst)
+
+        # Save user_id  --> user_id_pre
+        user_id_pre = user_id
+        # Increase time_id --> time_id
+        time_id += 1
 f.close()

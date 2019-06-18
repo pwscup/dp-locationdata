@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019.
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
 
 Description: 
     MRLH(mu_x, mu_y, lambda) (Merging Regions and Location Hiding; also called 
@@ -13,7 +13,7 @@ Reference:
     R.Shokri et al., Quantifying Location Privacy, IEEE S&P, 2011.
 
 Usage:
-    A2-MRLH.py [Testing Trace] [Anonymized Trace] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])
+    A2-MRLH.py [Testing Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])
 """
 import numpy as np
 import csv
@@ -25,9 +25,9 @@ NumRegX = 32
 # Number of regions in the y-term
 NumRegY = 32
 
-#sys.argv = ["A2-MRLH.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A2-MRLH.csv", 2, 2, 0.5]
+#sys.argv = ["A2-MRLH.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A2.csv", 2, 2, 0.5]
 if len(sys.argv) < 3:
-    print("Usage:",sys.argv[0],"[Testing Trace] [Anonymized Trace] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])" )
+    print("Usage:",sys.argv[0],"[Testing Trace] [Anonymized Trace][Testing Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])" )
     sys.exit(0)
 
 # Testing trace file (input)
@@ -105,11 +105,11 @@ f = open(TestTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time,reg_id", file=g)
+print("user_id,time_id,reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for lst in reader:
     user_id = int(lst[0])
-    tim = lst[1]
+    time_id = int(lst[1])
     reg_id = int(lst[2])
     # Anonymized region ID --> ano_reg_id
     rand = np.random.rand()
@@ -119,7 +119,7 @@ for lst in reader:
     # Generalize a region
     else:
         ano_reg_id = gen_dic[reg_id]
-    out_lst = [user_id, tim, ano_reg_id]
+    out_lst = [user_id, time_id, ano_reg_id]
     writer.writerow(out_lst)
 f.close()
 g.close()

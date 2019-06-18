@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019.
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
 
 Description: 
     k-RR(epsilon) (k-ary randomized response) [Kairouz+, ICML16]. 
@@ -11,7 +11,7 @@ Reference:
     P.Kairouz et al., Discrete Distribution Estimation under Local Privacy, ICML, 2016.
 
 Usage:
-    A3-kRR.py [Testing Trace] [Anonymized Trace] ([epsilon (default:0.1)]
+    A3-kRR.py [Testing Trace (in)] [Anonymized Trace (out)] ([epsilon (default:0.1)])
 """
 import numpy as np
 import math
@@ -24,9 +24,9 @@ NumRegX = 32
 # Number of regions in the y-term
 NumRegY = 32
 
-#sys.argv = ["A3-kRR.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A3-kRR.csv", 6]
+#sys.argv = ["A3-kRR.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A3.csv", 6]
 if len(sys.argv) < 3:
-    print("Usage:",sys.argv[0],"[Testing Trace] [Anonymized Trace] ([epsilon (default:0.1)])" )
+    print("Usage:",sys.argv[0],"[Testing Trace (in)] [Anonymized Trace (out)] ([epsilon (default:0.1)])" )
     sys.exit(0)
 
 # Testing trace file (input)
@@ -55,11 +55,11 @@ f = open(TestTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time,reg_id", file=g)
+print("user_id,time_id,reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for lst in reader:
     user_id = int(lst[0])
-    tim = lst[1]
+    time_id = int(lst[1])
 #    reg_id = int(lst[2])
     reg_id = int(lst[2])-1
     # Anonymized region ID --> ano_reg_id
@@ -74,8 +74,8 @@ for lst in reader:
         ano_reg_id = shift_id
         if ano_reg_id >= reg_id:
             ano_reg_id += 1
-#    out_lst = [user_id, tim, ano_reg_id]
-    out_lst = [user_id, tim, ano_reg_id+1]
+#    out_lst = [user_id, time_id, ano_reg_id]
+    out_lst = [user_id, time_id, ano_reg_id+1]
     writer.writerow(out_lst)
 f.close()
 g.close()
