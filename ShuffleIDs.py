@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019.
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
 
 Description: 
     Shuffle user IDs in all anonymized trace files.
@@ -20,7 +20,7 @@ UserNum = 1000
 
 #sys.argv = ["ShuffleIDs.py", "Data_Anonymized", "Data_Anonymized_Shuffled"]
 if len(sys.argv) < 3:
-    print("Usage:",sys.argv[0],"[Anonymized Trace Directory] [Anonymized & Shuffled Trace Directory])" )
+    print("Usage:",sys.argv[0],"[Anonymized Trace Directory] [Anonymized & Shuffled Trace Directory]" )
     sys.exit(0)
 
 # Anonymized trace directory (input)
@@ -41,6 +41,8 @@ for ano_trace_file in ano_trace_file_lst:
     # Randomly shuffled user ID --> rand_id 
     rand_id = np.arange(UserNum)
     np.random.shuffle(rand_id)
+    
+    rand_id_inv = np.argsort(rand_id)
 
     # Aonnymized & shuffled trace file --> ano_shu_trace_file
     basename = os.path.basename(ano_trace_file)
@@ -69,7 +71,7 @@ for ano_trace_file in ano_trace_file_lst:
 
     # Output the anonymized & shuffled traces
     g = open(ano_shu_trace_file, "w")
-    print("pse_id,time,reg_id", file=g)
+    print("pse_id,time_id,reg_id", file=g)
     writer = csv.writer(g, lineterminator="\n")
     for lst in ano_shu_trace:
         writer.writerow(lst)
@@ -77,10 +79,12 @@ for ano_trace_file in ano_trace_file_lst:
 
     # Output the pseudo-ID table
     g = open(pse_id_table_file, "w")
-    print("user_id,pse_id", file=g)
+#    print("user_id,pse_id", file=g)
+    print("pse_id,user_id", file=g)
     writer = csv.writer(g, lineterminator="\n")
     for i in range(UserNum):
 #        lst = [i, rand_id[i]]
-        lst = [i+1, rand_id[i]+1]
+#        lst = [i+1, rand_id[i]+1]
+        lst = [i+1, rand_id_inv[i]+1]
         writer.writerow(lst)
     g.close()
