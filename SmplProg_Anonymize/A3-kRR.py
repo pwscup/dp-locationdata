@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 21, 2019).
 
 Description: 
     k-RR(epsilon) (k-ary randomized response) [Kairouz+, ICML16]. 
@@ -19,9 +19,9 @@ import csv
 import sys
 
 ################################# Parameters ##################################
-# Number of regions in the x-term
+# Number of regions on the x-axis
 NumRegX = 32
-# Number of regions in the y-term
+# Number of regions on the y-axis
 NumRegY = 32
 
 #sys.argv = ["A3-kRR.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A3.csv", 6]

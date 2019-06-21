@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Jun 17, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 21, 2019).
 
 Description: 
     MRLH(mu_x, mu_y, lambda) (Merging Regions and Location Hiding; also called 
@@ -20,9 +20,9 @@ import csv
 import sys
 
 ################################# Parameters ##################################
-# Number of regions in the x-term
+# Number of regions on the x-axis
 NumRegX = 32
-# Number of regions in the y-term
+# Number of regions on the y-axis
 NumRegY = 32
 
 #sys.argv = ["A2-MRLH.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A2.csv", 2, 2, 0.5]

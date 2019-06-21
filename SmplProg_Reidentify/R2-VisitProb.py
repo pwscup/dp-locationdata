@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019.
+Created by Takao Murakami Jun 18, 2019 (last updated: Jun 21, 2019).
 
 Description: 
     Re-identification attack based on visit-probability vectors.
@@ -23,9 +23,9 @@ import sys
 ################################# Parameters ##################################
 # Number of users
 UserNum = 1000
-# Number of regions in the x-term
+# Number of regions on the x-axis
 NumRegX = 32
-# Number of regions in the y-term
+# Number of regions on the y-axis
 NumRegY = 32
 # Smallest probability
 Delta = 1e-8

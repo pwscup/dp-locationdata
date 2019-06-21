@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019.
+Created by Takao Murakami Jun 12, 2019 (last updated: Jun 21, 2019).
 
 Description: 
     Read the People flow dataset (SNS-based People Flow Data) within the area 
@@ -30,9 +30,9 @@ MAX_Y = 35.75
 MIN_X = 139.68
 # Maximum of x (longitude)
 MAX_X = 139.8
-# Number of regions in the x-term
+# Number of regions on the x-axis
 NumRegX = 32
-# Number of regions in the y-term
+# Number of regions on the y-axis
 NumRegY = 32
 
 ########################### Read People flow files ############################
