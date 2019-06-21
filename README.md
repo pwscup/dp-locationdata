@@ -22,7 +22,7 @@ SmplProg_Anonymize/				匿名加工サンプルプログラム
 
 SmplProg_Reidentify/			再識別（Reidentification Attack）サンプルプログラム
  - R1-rand.py					ランダム識別
- - R2-VisitProb.py				ユーザ毎の領域滞在分布を学習し，事後確率の大きいユーザとして再識別する
+ - R2-VisitProb.py				ユーザ毎の領域滞在分布を学習し，最も事後確率の大きいユーザとして再識別する
 
 SmplProg_Track/					属性推定（Tracking Attack）サンプルプログラム
  - T1-rand.py					ランダム推定
