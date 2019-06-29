@@ -47,8 +47,8 @@ EvalSecRFile = "EvalSecR.py"
 EvalSecTFile = "EvalSecT.py"
 
 # Training trace file
-#TrainTraceFile = "Data/traintraces_TK.csv"
-TrainTraceFile = "Data/testtraces_TK.csv"
+TrainTraceFile = "Data/traintraces_TK.csv"
+#TrainTraceFile = "Data/testtraces_TK.csv"
 # Testing trace file
 TestTraceFile = "Data/testtraces_TK.csv"
 

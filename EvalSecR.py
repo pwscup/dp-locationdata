@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019.
+Created by Takao Murakami Jun 18, 2019 (last updated: Jun 29, 2019).
 
 Description: 
     Evaluate a security score (re-identification).
@@ -52,4 +52,7 @@ for i in ptable:
         reid_rate += 1
 reid_rate /= len(ptable)
 
-print(reid_rate)
+# Revserse reid_rate so that 1 (resp. 0) is the best (resp. worst) score --> avg_rscore
+avg_rscore = 1 - reid_rate
+
+print(avg_rscore)

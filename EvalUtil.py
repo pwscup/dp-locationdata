@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019.
+Created by Takao Murakami Jun 18, 2019 (last updated: Jun 29, 2019).
 
 Description: 
     Evaluate a utility score.
@@ -39,11 +39,12 @@ TestTraceFile = sys.argv[1]
 # Anonymized trace file (input)
 AnoTraceFile = sys.argv[2]
 
-################ Calculate a utility score between two regions ################
+################ Calculate a utility loss between two regions #################
 # [input1]: reg_id1
 # [input2]: reg_id2
 # [input3]: xc
 # [input4]: yc
+# [output1]: uloss
 def CalUtil(reg_id1, reg_id2, xc, yc):
     # Region IDs (with zero start) --> reg_id1, reg_id2
     reg_id1 -= 1
@@ -62,11 +63,11 @@ def CalUtil(reg_id1, reg_id2, xc, yc):
     dist_km = math.sqrt(dist_y_km**2 + dist_x_km**2)
     
     if dist_km > MinDisOneScore:
-        uscore = 1
+        uloss = 1
     else:
-        uscore = dist_km / MinDisOneScore
+        uloss = dist_km / MinDisOneScore
 
-    return uscore
+    return uloss
 
 #################################### Main #####################################
 # Initialization
@@ -106,8 +107,8 @@ for i in range(NumRegX):
 for i in range(NumRegY):
     yc[i] = MIN_Y + y_width * i + y_width / 2
 
-# Calculate the average utility score --> avg_uscore
-avg_uscore = 0
+# Calculate the average utility loss --> avg_uloss
+avg_uloss = 0
 for (user_id, time_id) in test_trace:
     reg_id1 = test_trace[(user_id, time_id)]
 
@@ -118,16 +119,19 @@ for (user_id, time_id) in test_trace:
     # Noise
     if reg_id2_num == 1 and reg_id2_lst[0] != "*":
         reg_id2 = int(reg_id2_lst[0])
-        avg_uscore += CalUtil(reg_id1, reg_id2, xc, yc)
+        avg_uloss += CalUtil(reg_id1, reg_id2, xc, yc)
     # Generalization
     elif reg_id2_num >= 2:
         for r in range(reg_id2_num):
             # Region ID --> reg_id
             reg_id2 = int(reg_id2_lst[r])
-            avg_uscore += CalUtil(reg_id1, reg_id2, xc, yc) / reg_id2_num
+            avg_uloss += CalUtil(reg_id1, reg_id2, xc, yc) / reg_id2_num
     # Location hiding (deletion)
     else:
-        avg_uscore += 1
-avg_uscore /= len(test_trace)
+        avg_uloss += 1
+avg_uloss /= len(test_trace)
+
+# Revserse avg_uloss so that 1 (resp. 0) is the best (resp. worst) score --> avg_uscore
+avg_uscore = 1 - avg_uloss
 
 print(avg_uscore)
