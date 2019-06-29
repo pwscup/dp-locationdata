@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019.
+Created by Takao Murakami Jun 18, 2019 (last updated: Jun 29, 2019).
 
 Description: 
     Run all anonymization & shuffle algorithms, re-identification algorithms, 
@@ -61,6 +61,15 @@ ReidTraceDir = "Data_Reidentified"
 # Tracking trace directory
 TraTraceDir = "Data_Tracked"
 
+# Anonymized trace name
+AnoTraceName = "testtraces_TK"
+# Estimated table name
+EstTableName = "etable_TK"
+# Pseudo-ID table name
+PseTableName = "ptable_TK"
+# Estimated trace name
+EstTraceName = "etraces_TK"
+
 # Result file (output)
 ResFile = "results.csv"
 
@@ -73,7 +82,7 @@ anony_lst = []
 for i in range(len(AnoAlgFile)):
     if AnoAlgParam[i] == 0:
         # Anonymized trace file --> ano_trace_file
-        ano_trace_file = AnoTraceDir + "/testtraces_TK_" + AnoAlgFile[i][0:2] + ".csv"
+        ano_trace_file = AnoTraceDir + "/" + AnoTraceName + "_" + AnoAlgFile[i][0:2] + ".csv"
         # Run the anonymiation algorithm
         cmd = PyAlg + " " + AnoAlgDir + "/" + AnoAlgFile[i] + " " + TestTraceFile + " " + ano_trace_file
         print(cmd)
@@ -88,7 +97,7 @@ for i in range(len(AnoAlgFile)):
         for j in range(len(AnoAlgParam[i])):
             param = AnoAlgParam[i][j].replace("-", " ")
             # Anonymized trace file --> ano_trace_file
-            ano_trace_file = AnoTraceDir + "/testtraces_TK_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv"
+            ano_trace_file = AnoTraceDir + "/" + AnoTraceName + "_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv"
             # Run the anonymiation algorithm with the parameter
             cmd = PyAlg + " " + AnoAlgDir + "/" + AnoAlgFile[i] + " " + TestTraceFile + " " + ano_trace_file + " " + param
             print(cmd)
@@ -110,17 +119,17 @@ x = 0
 for i in range(len(AnoAlgFile)):
     if AnoAlgParam[i] == 0:
         # Anonymized & shuffled trace file --> ano_trace_file
-        ano_shu_trace_file = AnoShuTraceDir + "/testtraces_TK_" + AnoAlgFile[i][0:2] + ".csv"
+        ano_shu_trace_file = AnoShuTraceDir + "/" + AnoTraceName + "_" + AnoAlgFile[i][0:2] + ".csv"
         # For each re-identification algorithm
         for k in range(len(ReidAlgFile)):
             # Estimated table file --> est_table_file
-            est_table_file = ReidTraceDir + "/etable_TK_" + AnoAlgFile[i][0:2] + "-" + ReidAlgFile[k][0:2] + ".csv"
+            est_table_file = ReidTraceDir + "/" + EstTableName + "_" + AnoAlgFile[i][0:2] + "-" + ReidAlgFile[k][0:2] + ".csv"
             # Run the re-identification algorithm
             cmd = PyAlg + " " + ReidAlgDir + "/" + ReidAlgFile[k] + " " + TrainTraceFile + " " + ano_shu_trace_file + " " + est_table_file
             print(cmd)
             subprocess.check_output(cmd.split())
             # Evaluate the security (re-identification)
-            ptable_file = AnoShuTraceDir + "/ptable_TK_" + AnoAlgFile[i][0:2] + ".csv" 
+            ptable_file = AnoShuTraceDir + "/" + PseTableName + "_" + AnoAlgFile[i][0:2] + ".csv" 
             cmd = PyAlg + " " + EvalSecRFile + " " + ptable_file + " " + est_table_file
             print(cmd)
             runcmd = subprocess.check_output(cmd.split())
@@ -128,7 +137,7 @@ for i in range(len(AnoAlgFile)):
         # For each tracking algorithm
         for k in range(len(TraAlgFile)):
             # Estimated trace file --> est_trace_file
-            est_trace_file = TraTraceDir + "/etraces_TK_" + AnoAlgFile[i][0:2] + "-" + TraAlgFile[k][0:2] + ".csv"
+            est_trace_file = TraTraceDir + "/" + EstTraceName + "_" + AnoAlgFile[i][0:2] + "-" + TraAlgFile[k][0:2] + ".csv"
             # Run the tracking algorithm
             cmd = PyAlg + " " + TraAlgDir + "/" + TraAlgFile[k] + " " + TrainTraceFile + " " + ano_shu_trace_file + " " + est_trace_file
             print(cmd)
@@ -144,16 +153,16 @@ for i in range(len(AnoAlgFile)):
         for j in range(len(AnoAlgParam[i])):
             param = AnoAlgParam[i][j].replace("-", " ")
             # Anonymized & shuffled trace file --> ano_trace_file
-            ano_shu_trace_file = AnoShuTraceDir + "/testtraces_TK_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv"
+            ano_shu_trace_file = AnoShuTraceDir + "/" + AnoTraceName + "_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv"
             # Run each re-identification algorithm
             for k in range(len(ReidAlgFile)):
                 # Estimated table file --> est_table_file
-                est_table_file = ReidTraceDir + "/etable_TK_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + "-" + ReidAlgFile[k][0:2] + ".csv"
+                est_table_file = ReidTraceDir + "/" + EstTableName + "_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + "-" + ReidAlgFile[k][0:2] + ".csv"
                 cmd = PyAlg + " " + ReidAlgDir + "/" + ReidAlgFile[k] + " " + TrainTraceFile + " " + ano_shu_trace_file + " " + est_table_file
                 print(cmd)
                 subprocess.check_output(cmd.split())
                 # Evaluate the security (re-identification)
-                ptable_file = AnoShuTraceDir + "/ptable_TK_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv" 
+                ptable_file = AnoShuTraceDir + "/" + PseTableName + "_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + ".csv" 
                 cmd = PyAlg + " " + EvalSecRFile + " " + ptable_file + " " + est_table_file
                 print(cmd)
                 runcmd = subprocess.check_output(cmd.split())
@@ -161,7 +170,7 @@ for i in range(len(AnoAlgFile)):
             # For each tracking algorithm
             for k in range(len(TraAlgFile)):
                 # Estimated trace file --> est_trace_file
-                est_trace_file = TraTraceDir + "/etraces_TK_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + "-" + TraAlgFile[k][0:2] + ".csv"
+                est_trace_file = TraTraceDir + "/" + EstTraceName + "_" + AnoAlgFile[i][0:2] + "-" + AnoAlgParam[i][j] + "-" + TraAlgFile[k][0:2] + ".csv"
                 # Run the tracking algorithm
                 cmd = PyAlg + " " + TraAlgDir + "/" + TraAlgFile[k] + " " + TrainTraceFile + " " + ano_shu_trace_file + " " + est_trace_file
                 print(cmd)
