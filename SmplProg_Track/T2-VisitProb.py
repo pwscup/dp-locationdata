@@ -7,11 +7,13 @@ Description:
     It performs the following processes (assuming a uniform prior):
     1) Train a visit-probability vector, which is composed of the probability 
        for each region, for each user via the ML estimation.
-    2) Re-identify each trace by choosing a user with the highest posterior.
+    2) Re-identify each trace by choosing a user with the highest posterior 
+       (= highest likelihood), assuming that the prior over users is uniform.
        (At this point, we do not de-obfuscate the trace. For generalized 
         regions, we average the likelihood over randomly chosen L regions. For 
         location hiding (deletion), we don't update the likelihood.)
-    3) De-obfuscate each trace by choosing a location with the highest posterior.
+    3) De-obfuscate each trace by choosing a location with the highest posterior 
+       (= highest likelihood), assuming that the prior over regions is uniform.
        (For noise, we output the noisy location as is. For generalization, 
         we output a location with the highest posterior among all generalized 
         regions. For location hiding (deletion), we consider all regions.)
