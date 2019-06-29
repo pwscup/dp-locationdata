@@ -115,7 +115,7 @@ for (user_id, time_id) in test_trace:
     avg_tloss += CalTLoss(reg_id1, reg_id2, xc, yc)
 avg_tloss /= len(test_trace)
 
-# Revserse avg_tloss so that 1 (resp. 0) is the best (resp. worst) score --> avg_tscore
+# Reverse avg_tloss so that 1 (resp. 0) is the best (resp. worst) score --> avg_tscore
 avg_tscore = 1 - avg_tloss
 
 print(avg_tscore)

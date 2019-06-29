@@ -131,7 +131,7 @@ for (user_id, time_id) in test_trace:
         avg_uloss += 1
 avg_uloss /= len(test_trace)
 
-# Revserse avg_uloss so that 1 (resp. 0) is the best (resp. worst) score --> avg_uscore
+# Reverse avg_uloss so that 1 (resp. 0) is the best (resp. worst) score --> avg_uscore
 avg_uscore = 1 - avg_uloss
 
 print(avg_uscore)

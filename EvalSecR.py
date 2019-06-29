@@ -52,7 +52,7 @@ for i in ptable:
         reid_rate += 1
 reid_rate /= len(ptable)
 
-# Revserse reid_rate so that 1 (resp. 0) is the best (resp. worst) score --> avg_rscore
+# Reverse reid_rate so that 1 (resp. 0) is the best (resp. worst) score --> avg_rscore
 avg_rscore = 1 - reid_rate
 
 print(avg_rscore)
