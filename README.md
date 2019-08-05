@@ -1,16 +1,16 @@
 ## このレポジトリは
-位置情報のデータ，サンプルプログラム（匿名化，ID識別，トレース推定），シャッフル（仮名化），有用性・安全性評価アルゴリズムのコードを管理しています
+位置情報のデータ，サンプルプログラム（匿名化・ID識別・トレース推定），シャッフル（仮名化），有用性・安全性評価アルゴリズムのコードを管理しています
 詳しくは、[PWSCUP Slack](https://join.slack.com/t/pwscup/shared_invite/enQtNjIwMjQ4OTgzOTU1LTY4NTA2Y2RiZTA1M2E1MDdhYjg4YjY1MTY3OTFmODdiMTI3NmQxNTBjZjkyZjlkZjEzNzA1OGZjYTA4NTM3Y2I)で！
 
 
 ## 実行
 - python3.6以上の環境？であれば動きます
   - 必要なパッケージを``` pip install ``` しましょう
-  - Eval.bash: 大阪データセット（チーム番号：001，データセット番号：01）を匿名加工・ID識別・トレース推定する．
+  - Eval.bash: 大阪の元トレース（チーム番号：001，データセット番号：01）を匿名加工・ID識別・トレース推定する．
     - 匿名加工アルゴリズム：A2-MRLH
     - ID識別アルゴリズム：I1-rand
     - トレース推定アルゴリズム：T1-rand
-  - EvalAll.py: 大阪データセット（チーム番号：001，データセット番号：01）に対して，以下の全匿名加工・全ID識別・全トレース推定アルゴリズムを走らせる（30分程度かかかるので注意）．
+  - EvalAll.py: 大阪の元トレース（チーム番号：001，データセット番号：01）に対して，以下の全匿名加工・全ID識別・全トレース推定アルゴリズムを走らせる（30分程度かかかるので注意）．
     - 匿名加工アルゴリズム：A1-none, A2-MRLH, A3-kRR, A4-PL, A5-YA
     - ID識別アルゴリズム：I1-rand, I2-VisitProb, I3-HomeProb
     - トレース推定アルゴリズム：T1-rand, T2-VisitProb, T3-HomeProb
@@ -75,6 +75,6 @@ python EvalAll.py
   - results_team001_data01.csv			EvalAll.pyを実行して得られたファイル
   - results_team001_data01.xlsx			results_team001_data01.csvの結果を図にまとめたファイル
 
-- Eval.bash						大阪データセット（チーム番号：001，データセット番号：01）を匿名加工（A2-MRLH）・ID識別（I1-rand）・トレース推定（T1-rand）する．
+- Eval.bash						大阪の元トレース（チーム番号：001，データセット番号：01）を匿名加工（A2-MRLH）・ID識別（I1-rand）・トレース推定（T1-rand）する．
 
-- EvalAll.py					大阪データセット（チーム番号：001，データセット番号：01）に対して，全匿名加工・全ID識別・全トレース推定アルゴリズムを走らせる．
+- EvalAll.py					大阪の元トレース（チーム番号：001，データセット番号：01）に対して，全匿名加工・全ID識別・全トレース推定アルゴリズムを走らせる．
