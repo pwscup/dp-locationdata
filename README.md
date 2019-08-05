@@ -1,5 +1,5 @@
 ## このレポジトリは
-位置情報生成・匿名化・再識別アルゴリズムの検証用コードを管理しています
+位置情報のデータ，サンプルプログラム（匿名化，ID識別，トレース推定），シャッフル（仮名化），有用性・安全性評価アルゴリズムのコードを管理しています
 詳しくは、[PWSCUP Slack](https://join.slack.com/t/pwscup/shared_invite/enQtNjIwMjQ4OTgzOTU1LTY4NTA2Y2RiZTA1M2E1MDdhYjg4YjY1MTY3OTFmODdiMTI3NmQxNTBjZjkyZjlkZjEzNzA1OGZjYTA4NTM3Y2I)で！
 
 
@@ -17,7 +17,7 @@
 
 ```bash
 pip install -r requirements.txt
-bash Eval.bash
+Eval.bash
 python EvalAll.py
 ```
 
