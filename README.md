@@ -76,6 +76,6 @@ python EvalAll.py
   - results_team001_data01.csv			EvalAll.pyを実行して得られたファイル
   - results_team001_data01.xlsx			results_team001_data01.csvの結果を図にまとめたファイル
 
-- Eval.bash						大阪の元トレース（チーム番号：001，データセット番号：01）を匿名加工（A2-MRLH）・ID識別（I1-rand）・トレース推定（T1-rand）する．
+- Eval.bash						大阪の元トレース（チーム番号：001，データセット番号：01）に対して，匿名加工（A2-MRLH）・ID識別（I1-rand）・トレース推定（T1-rand）する．
 
 - EvalAll.py					大阪の元トレース（チーム番号：001，データセット番号：01）に対して，全匿名加工・全ID識別・全トレース推定アルゴリズムを走らせる．
