@@ -17,7 +17,7 @@
 
 ```bash
 pip install -r requirements.txt
-Eval.bash
+bash Eval.bash
 python EvalAll.py
 ```
 
