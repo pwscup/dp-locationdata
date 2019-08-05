@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Jun 21, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Aug 5, 2019).
 
 Description: 
     MRLH(mu_x, mu_y, lambda) (Merging Regions and Location Hiding; also called 
@@ -13,25 +13,26 @@ Reference:
     R.Shokri et al., Quantifying Location Privacy, IEEE S&P, 2011.
 
 Usage:
-    A2-MRLH.py [Testing Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])
+    A2-MRLH.py [Original Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])
 """
 import numpy as np
 import csv
 import sys
 
 ################################# Parameters ##################################
+# Number of users
+UserNum = 2000
 # Number of regions on the x-axis
 NumRegX = 32
 # Number of regions on the y-axis
 NumRegY = 32
-
-#sys.argv = ["A2-MRLH.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A2.csv", 2, 2, 0.5]
+#sys.argv = ["A2-MRLH.py", "../Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv", "../Data_Anonymize/anotraces_team001_data01_IDP_A2.csv", 1, 1, 0]
 if len(sys.argv) < 3:
-    print("Usage:",sys.argv[0],"[Testing Trace] [Anonymized Trace][Testing Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])" )
+    print("Usage:",sys.argv[0],"[Original Trace] [Anonymized Trace] [Original Trace (in)] [Anonymized Trace (out)] ([mu_x (default:2)] [mu_y (default:2)] [lambda (default:0.5)])" )
     sys.exit(0)
 
-# Testing trace file (input)
-TestTraceFile = sys.argv[1]
+# Original trace file (input)
+OrgTraceFile = sys.argv[1]
 # Anonymized trace file (output)
 AnoTraceFile = sys.argv[2]
 
@@ -100,13 +101,14 @@ np.random.seed(1)
 # Make a generalization dictionary --> gen_dic
 gen_dic = MakeGenDic()
 
-# Read a testing trace file and output anonymized traces
-f = open(TestTraceFile, "r")
+# Read the original trace file and output anonymized traces
+f = open(OrgTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
 print("user_id,time_id,reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
+home_reg_id = -1
 for lst in reader:
     user_id = int(lst[0])
     time_id = int(lst[1])

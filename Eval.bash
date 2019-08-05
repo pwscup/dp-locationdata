@@ -1,19 +1,12 @@
-python3.6 SmplProg_Anonymize/A1-none.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A1.csv
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-0-0-0.5.csv 0 0 0.5
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-0-0-0.8.csv 0 0 0.8
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-1-1-0.csv 1 1 0
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-1-1-0.5.csv 1 1 0.5
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-1-1-0.8.csv 1 1 0.8
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-2-2-0.csv 2 2 0
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-2-2-0.5.csv 2 2 0.5
-python3.6 SmplProg_Anonymize/A2-MRLH.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A2-2-2-0.8.csv 2 2 0.8
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-0.01.csv 0.01
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-0.1.csv 0.1
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-1.csv 1
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-2.csv 2
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-3.csv 3
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-4.csv 4
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-5.csv 5
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-6.csv 6
-python3.6 SmplProg_Anonymize/A3-kRR.py Data/testtraces_TK.csv Data_Anonymized/testtraces_TK_A3-6.93.csv 6.93
-python3.6 ShuffleIDs.py Data_Anonymized Data_Anonymized_Shuffled
+#Evaluate utility (anonymization algorithm: A2-MRLH)
+python SmplProg_Anonymize/A2-MRLH.py Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv Data_Anonymize/anotraces_team001_data01_IDP.csv
+python Prog_Shuffle/ShuffleIDs.py Data_Anonymize Data_Anonymize_Shuffle
+python Prog_Eval/EvalUtil.py Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv Data_Anonymize/anotraces_team001_data01_IDP.csv > res_sU.txt
+
+#Evaluate security for ID-disclosure (ID-disclosure algorithm: I1-rand)
+python SmplProg_IDDisclose/I1-rand.py Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP.csv Data_IDDisclose/etable_team001_data01_IDP.csv
+python Prog_Eval/EvalSecI.py Data_Anonymize_Shuffle/ptable_team001_data01_IDP.csv Data_IDDisclose/etable_team001_data01_IDP.csv > res_sI.txt
+
+#Evaluate security for trace inference (trace inference algorithm: T1-rand)
+python SmplProg_TraceInfer/T1-rand.py Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP.csv Data_TraceInfer/etraces_team001_data01_IDP.csv
+python Prog_Eval/EvalSecT.py Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv Data_TraceInfer/etraces_team001_data01_IDP.csv > res_sT.txt

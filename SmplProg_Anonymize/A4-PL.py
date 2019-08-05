@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 17, 2019.
+Created by Takao Murakami Jun 17, 2019 (last updated: Aug 5, 2019).
 
 Description: 
     PL(l, r) (Planar Laplace mechanism) [Andres+, CCS13]. 
@@ -12,7 +12,7 @@ Reference:
     M.E.Andres et al., Geo-Indistinguishability: Differential Privacy for Location-Based Systems, CCS, 2013.
 
 Usage:
-    A4-PL.py [Testing Trace (in)] [Anonymized Trace (out)] ([l (default:0.1)] [r (default:1)])
+    A4-PL.py [Original Trace (in)] [Anonymized Trace (out)] ([l (default:0.1)] [r (default:1)])
 """
 import numpy as np
 import scipy.special as spys
@@ -34,13 +34,13 @@ NumRegX = 32
 # Number of regions in the y-term
 NumRegY = 32
 
-#sys.argv = ["A4-PL.py", "../Data/testtraces_TK.csv", "../Data_Anonymized/testtraces_TK_A4.csv", 6, 1]
+#sys.argv = ["A4-PL.py", "../Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv", "../Data_Anonymize/anotraces_team001_data01_IDP_A4.csv", 4, 1]
 if len(sys.argv) < 3:
-    print("Usage:",sys.argv[0],"[Testing Trace (in)] [Anonymized Trace (out)] ([l (default:0.1)] [r (default:1)])" )
+    print("Usage:",sys.argv[0],"[Original Trace (in)] [Anonymized Trace (out)] ([l (default:0.1)] [r (default:1)])" )
     sys.exit(0)
 
-# Testing trace file (input)
-TestTraceFile = sys.argv[1]
+# Original trace file (input)
+OrgTraceFile = sys.argv[1]
 # Anonymized trace file (output)
 AnoTraceFile = sys.argv[2]
 
@@ -72,13 +72,14 @@ for i in range(NumRegX):
 for i in range(NumRegY):
     yc[i] = MIN_Y + y_width * i + y_width / 2
 
-# Read a testing trace file and output anonymized traces
-f = open(TestTraceFile, "r")
+# Read the original trace file and output anonymized traces
+f = open(OrgTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
 print("user_id,time_id,reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
+home_reg_id = -1
 for lst in reader:
     user_id = int(lst[0])
     time_id = int(lst[1])
@@ -121,9 +122,9 @@ for lst in reader:
 
     # reg_id (start with 0) after anonymization --> ano_reg_id
     ano_reg_id = ano_y_id * NumRegX + ano_x_id
+    ano_reg_id += 1
 
-#    out_lst = [user_id, time_id, ano_reg_id]
-    out_lst = [user_id, time_id, ano_reg_id+1]
+    out_lst = [user_id, time_id, ano_reg_id]
     writer.writerow(out_lst)
 f.close()
 g.close()
