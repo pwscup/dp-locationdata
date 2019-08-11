@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 18, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     Evaluate utility.
@@ -74,27 +74,34 @@ def CalUtil(reg_id1, reg_id2, xc, yc):
 test_trace = {}
 ano_trace = {}
 
-# Read the original trace file --> test_trace
+# Read the original trace file & anonymized trace file --> test_trace, ano_trace
 f = open(OrgTraceFile, "r")
+g = open(AnoTraceFile, "r")
 reader = csv.reader(f)
 next(reader)
+g.readline()
 for lst in reader:
+    # Read the original trace file --> test_trace
     user_id = int(lst[0])
     time_id = int(lst[1])
     reg_id = int(lst[2])
     test_trace[(user_id, time_id)] = reg_id
-f.close()
-
-# Read an anonymized trace file --> ano_trace
-f = open(AnoTraceFile, "r")
-reader = csv.reader(f)
-next(reader)
-for lst in reader:
-    user_id = int(lst[0])
-    time_id = int(lst[1])
-    ano_reg_id = lst[2]
+    # Read an anonymized trace file --> ano_trace
+    ano_reg_id = g.readline().rstrip("\n")
     ano_trace[(user_id, time_id)] = ano_reg_id
 f.close()
+g.close()
+
+## Read an anonymized trace file --> ano_trace
+#f = open(AnoTraceFile, "r")
+#reader = csv.reader(f)
+#next(reader)
+#for lst in reader:
+#    user_id = int(lst[0])
+#    time_id = int(lst[1])
+#    ano_reg_id = lst[2]
+#    ano_trace[(user_id, time_id)] = ano_reg_id
+#f.close()
 
 # Calculate the center of each region (NumRegX x NumRegY) --> xc, yc
 xc = np.zeros(NumRegX)

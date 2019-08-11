@@ -79,9 +79,9 @@ AnoShuTraceName = "pubtraces_team" + TeamNo + "_data" + DataSetNo + "_IDP"
 # Pseudo-ID table name
 PseTableName = "ptable_team" + TeamNo + "_data" + DataSetNo + "_IDP"
 # Estimated table name
-EstTableName = "etable_team" + TeamNo + "_data" + DataSetNo + "_IDP"
+EstTableName = "etable_team020-" + TeamNo + "_data" + DataSetNo + "_IDP"
 # Estimated trace name
-EstTraceName = "etraces_team" + TeamNo + "_data" + DataSetNo + "_IDP"
+EstTraceName = "etraces_team020-" + TeamNo + "_data" + DataSetNo + "_IDP"
 
 # Result file (output)
 ResFile = "results.csv"

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 18, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     Evaluate security (trace inference).
@@ -14,6 +14,8 @@ import csv
 import sys
 
 ################################# Parameters ##################################
+# Number of users
+UserNum = 2000
 # Minimum of y (latitude)
 MIN_Y = 35.65
 # Maximum of y (latitude)
@@ -39,7 +41,7 @@ for i in range(len(HosRegLst)):
     hos_reg_id = HosRegLst[i] - 1
     HosReg[hos_reg_id] = 1
 
-#sys.argv = ["EvalSecT.py", "../Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv", "../Data_TraceInfer/etraces_team001_data01_IDP_A2-T2.csv"]
+#sys.argv = ["EvalSecT.py", "../Data/PWSCup2019_Osaka/orgtraces_team001_data01_IDP.csv", "../Data_TraceInfer/etraces_team020-001_data01_IDP.csv"]
 if len(sys.argv) < 3:
     print("Usage:",sys.argv[0],"[Original Trace (in)] [Estimated Trace (in)]" )
     sys.exit(0)
@@ -92,27 +94,34 @@ def CalTLoss(reg_id1, reg_id2, xc, yc):
 test_trace = {}
 est_trace = {}
 
-# Read a testing trace file --> test_trace
+# Read a testing trace file & estimated trace file --> test_trace, est_trace
 f = open(OrgTraceFile, "r")
+g = open(EstTraceFile, "r")
 reader = csv.reader(f)
 next(reader)
+g.readline()
 for lst in reader:
+    # Read a testing trace file --> test_trace
     user_id = int(lst[0])
     time_id = int(lst[1])
-    reg_id = int(lst[2])
+    reg_id = int(lst[2])    
     test_trace[(user_id, time_id)] = reg_id
+    # Read an estimated trace file --> est_trace
+    reg_id2 = int(g.readline())
+    est_trace[(user_id, time_id)] = reg_id2
 f.close()
+g.close()
 
-# Read an estimated trace file --> est_trace
-f = open(EstTraceFile, "r")
-reader = csv.reader(f)
-next(reader)
-for lst in reader:
-    user_id = int(lst[0])
-    time_id = int(lst[1])
-    reg_id = int(lst[2])
-    est_trace[(user_id, time_id)] = reg_id
-f.close()
+## Read an estimated trace file --> est_trace
+#f = open(EstTraceFile, "r")
+#reader = csv.reader(f)
+#next(reader)
+#for lst in reader:
+#    user_id = int(lst[0])
+#    time_id = int(lst[1])
+#    reg_id = int(lst[2])
+#    est_trace[(user_id, time_id)] = reg_id
+#f.close()
 
 # Calculate the center of each region (NumRegX x NumRegY) --> xc, yc
 xc = np.zeros(NumRegX)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     k-RR(epsilon) (k-ary randomized response) [Kairouz+, ICML16]. 
@@ -55,7 +55,8 @@ f = open(OrgTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time_id,reg_id", file=g)
+#print("user_id,time_id,reg_id", file=g)
+print("reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 home_reg_id = -1
 for lst in reader:
@@ -77,7 +78,8 @@ for lst in reader:
         if ano_reg_id >= reg_id:
             ano_reg_id += 1
         ano_reg_id += 1
-    out_lst = [user_id, time_id, ano_reg_id]
+#    out_lst = [user_id, time_id, ano_reg_id]
+    out_lst = [ano_reg_id]
     writer.writerow(out_lst)
 f.close()
 g.close()

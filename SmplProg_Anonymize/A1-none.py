@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     Output the original trace as an anonymized trace; i.e., do nothing (except for shuffling IDs).
@@ -32,13 +32,15 @@ f = open(OrgTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time_id,reg_id", file=g)
+#print("user_id,time_id,reg_id", file=g)
+print("reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for lst in reader:
     user_id = int(lst[0])
     time_id = int(lst[1])
     reg_id = int(lst[2])
-    out_lst = [user_id, time_id, reg_id]
-    writer.writerow(lst)
+#    out_lst = [user_id, time_id, reg_id]
+    out_lst = [reg_id]
+    writer.writerow(out_lst)
 f.close()
 g.close()

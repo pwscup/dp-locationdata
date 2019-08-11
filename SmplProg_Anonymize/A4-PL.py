@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 17, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 17, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     PL(l, r) (Planar Laplace mechanism) [Andres+, CCS13]. 
@@ -77,7 +77,8 @@ f = open(OrgTraceFile, "r")
 g = open(AnoTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time_id,reg_id", file=g)
+#print("user_id,time_id,reg_id", file=g)
+print("reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 home_reg_id = -1
 for lst in reader:
@@ -124,7 +125,8 @@ for lst in reader:
     ano_reg_id = ano_y_id * NumRegX + ano_x_id
     ano_reg_id += 1
 
-    out_lst = [user_id, time_id, ano_reg_id]
+#    out_lst = [user_id, time_id, ano_reg_id]
+    out_lst = [ano_reg_id]
     writer.writerow(out_lst)
 f.close()
 g.close()

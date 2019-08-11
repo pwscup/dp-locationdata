@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 18, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     YA(p) (Yamaoka anonymization; also called cheating anonymization or 
@@ -67,8 +67,11 @@ out_lst.sort(key=lambda tup: tup[0], reverse=False)
 
 # Output anonymized traces
 g = open(AnoTraceFile, "w")
-print("user_id,time_id,reg_id", file=g)
+#print("user_id,time_id,reg_id", file=g)
+print("reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for lst in out_lst:
-    writer.writerow(lst)
+#    writer.writerow(lst)
+    out_lst = [lst[2]]
+    writer.writerow(out_lst)
 g.close()

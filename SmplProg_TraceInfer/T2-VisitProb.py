@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 18, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     Trace inference (tracking) attack based on visit-probability vectors. 
@@ -31,8 +31,6 @@ UserNum = 2000
 NumRegX = 32
 # Number of regions on the y-axis
 NumRegY = 32
-# Start time in original traces
-OrgStartTime = 41
 # Smallest probability
 Delta = 1e-8
 # Probability of choosing a region in an anonymized trace in re-identification (for efficiency)
@@ -40,7 +38,7 @@ P = 0.1
 # Maximum number of regions for generalization in re-identification (for efficiency)
 L = 10
 
-#sys.argv = ["T2-VisitProb.py", "../Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv", "../Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP_A2.csv", "../Data_TraceInfer/etraces_team001_data01_IDP_A2-T2.csv"]
+#sys.argv = ["T2-VisitProb.py", "../Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv", "../Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP.csv", "../Data_TraceInfer/etraces_team020-001_data01_IDP.csv"]
 if len(sys.argv) < 3:
     print("Usage:",sys.argv[0],"[Reference Trace (in)] [Anonymized Trace (in)] [Estimated Trace (out)]" )
     sys.exit(0)
@@ -102,7 +100,8 @@ def Reidentify(visit_vec):
     time_id = 1
     for lst in reader:
 #        pse_id = int(lst[0])
-        pse_id = int(lst[0])-1
+#        pse_id = int(lst[0])-1
+        pse_id = int(lst[0])-UserNum-1
         reg_id_lst = lst[2].split(" ")
 
         # For a new user
@@ -200,7 +199,8 @@ def Deobfuscate(est_table, visit_vec):
     time_id = OrgStartTime
     for lst in reader:
 #        pse_id = int(lst[0])
-        pse_id = int(lst[0])-1
+#        pse_id = int(lst[0])-1
+        pse_id = int(lst[0])-UserNum-1
         reg_id_lst = lst[2].split(" ")
 
         # User ID corresponding to pse_id --> user_id
@@ -248,6 +248,10 @@ def Deobfuscate(est_table, visit_vec):
 # Compute the length of time --> T
 T = int((len(open(AnoTraceFile).readlines()) - 1) / UserNum)
 
+# Start time in original traces
+#OrgStartTime = 41
+OrgStartTime = T+1
+
 # Train a visit vector & transition matrix for each user
 visit_vec = TrainVisitTrans()
 
@@ -262,16 +266,19 @@ f = open(AnoTraceFile, "r")
 g = open(EstTraceFile, "w")
 reader = csv.reader(f)
 next(reader)
-print("user_id,time_id,reg_id", file=g)
+#print("user_id,time_id,reg_id", file=g)
+print("reg_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for lst in reader:
 #    user_id = int(lst[0])
-    user_id = int(lst[0])-1
+#    user_id = int(lst[0])-1
+    user_id = int(lst[0])-UserNum-1
     time_id = int(lst[1])
     
     est_reg_id = est_trace[(user_id,time_id)]
 #    lst = [user_id,time_id,est_reg_id]
-    lst = [user_id+1,time_id,est_reg_id+1]
+#    lst = [user_id+1,time_id,est_reg_id+1]
+    lst = [est_reg_id+1]
     writer.writerow(lst)
 
 f.close()

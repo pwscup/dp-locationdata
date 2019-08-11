@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 18, 2019 (last updated: Aug 5, 2019).
+Created by Takao Murakami Jun 18, 2019 (last updated: Aug 11, 2019).
 
 Description: 
     ID-disclosure (re-identification) attack based on visit-probability vectors.
@@ -34,7 +34,7 @@ P = 0.1
 # Maximum number of regions for generalization in re-identification (for efficiency)
 L = 10
 
-#sys.argv = ["I2-VisitProb.py", "../Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv", "../Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP_A2.csv", "../Data_IDDisclose/etable_team001_data01_IDP_A2-I2.csv"]
+#sys.argv = ["I2-VisitProb.py", "../Data/PWSCup2019_Osaka/reftraces_team001_data01_IDP.csv", "../Data_Anonymize_Shuffle/pubtraces_team001_data01_IDP.csv", "../Data_IDDisclose/etable_team020-001_data01_IDP.csv"]
 if len(sys.argv) < 3:
     print("Usage:",sys.argv[0],"[Reference Trace (in)] [Anonymized Trace (in)] [Estimated Table (out)]" )
     sys.exit(0)
@@ -95,7 +95,8 @@ def Reidentify(visit_vec):
     time_id = 1
     for lst in reader:
 #        pse_id = int(lst[0])
-        pse_id = int(lst[0])-1
+#        pse_id = int(lst[0])-1
+        pse_id = int(lst[0])-UserNum-1
         reg_id_lst = lst[2].split(" ")
         
         # For a new user
@@ -175,10 +176,13 @@ est_table = Reidentify(visit_vec)
 
 # Output the estimated pseudo-ID table
 g = open(EstTableFile, "w")
-print("pse_id,user_id", file=g)
+#print("pse_id,user_id", file=g)
+print("user_id", file=g)
 writer = csv.writer(g, lineterminator="\n")
 for pse_id in range(UserNum):
 #    lst = [pse_id, est_table[pse_id]]
-    lst = [pse_id+1, est_table[pse_id]+1]
+#    lst = [pse_id+1, est_table[pse_id]+1]
+#    lst = [pse_id+UserNum+1, est_table[pse_id]+1]
+    lst = [est_table[pse_id]+1]
     writer.writerow(lst)
 g.close()
