@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Aug 11, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Aug 22, 2019).
 
 Description: 
     k-RR(epsilon) (k-ary randomized response) [Kairouz+, ICML16]. 

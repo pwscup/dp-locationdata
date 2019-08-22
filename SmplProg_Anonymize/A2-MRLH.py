@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 12, 2019 (last updated: Aug 11, 2019).
+Created by Takao Murakami Jun 12, 2019 (last updated: Aug 22, 2019).
 
 Description: 
     MRLH(mu_x, mu_y, lambda) (Merging Regions and Location Hiding; also called 

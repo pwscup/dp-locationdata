@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Created by Takao Murakami Jun 17, 2019 (last updated: Aug 11, 2019).
+Created by Takao Murakami Jun 17, 2019 (last updated: Aug 22, 2019).
 
 Description: 
     PL(l, r) (Planar Laplace mechanism) [Andres+, CCS13]. 
