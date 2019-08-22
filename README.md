@@ -38,6 +38,9 @@ python EvalAll.py
     - info_time.csv         時刻情報（参照トレース/元トレース，時刻ID，日，時，分）
     - orgtraces_teamXXX_dataYY_ZZZ.csv    チーム番号XXX，データセット番号YYの元トレース
     - reftraces_teamXXX_dataYY_ZZZ.csv    チーム番号XXX，データセット番号YYの参照トレース
+  - PWSCup2019_Tokyo_Preliminary/        予備選における領域情報ファイルと時刻情報ファイル
+    - info_region.csv                      領域情報ファイル
+    - info_time.csv                        時刻情報ファイル
 
 - Data_Anonymize/				       匿名加工データ（シャッフル前）
 
